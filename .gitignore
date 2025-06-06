@@ -1,2 +1,8 @@
 /cmake-build-debug/
 /.idea/
+build
+out
+.vscode
+*.pb.*
+*.code-workspace
+cmake_build
