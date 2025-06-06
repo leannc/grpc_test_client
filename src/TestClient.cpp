@@ -7,12 +7,15 @@ void TestClient::TimeConsumingCall() {
 
   std::cout << "【" << std::this_thread::get_id() << "】" << "before calling【TimeConsumingMethod】" << std::endl;
   for (int i = 0; i < 5; ++i) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     TimeConsumingRequest request;
     TimeConsumingResponse response;
     ::grpc::ClientContext context;
 
     int index = results.size();
     results.push_back(false);
+
+    // async call
     stub_->async()->TimeConsumingMethod(
         &context, &request, &response, [&results, &response, &mu, &cv, index](::grpc::Status status) {
           auto res = response.status();
@@ -23,7 +26,6 @@ void TestClient::TimeConsumingCall() {
           cv.notify_one();
           std::cout << "【" << std::this_thread::get_id() << "】" << "callback done" << std::endl;
         });
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 
   std::cout << "【" << std::this_thread::get_id() << "】"
