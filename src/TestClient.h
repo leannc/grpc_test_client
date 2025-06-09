@@ -1,6 +1,7 @@
 #pragma once
-#include "test.grpc.pb.h"
+
 #include <grpcpp/grpcpp.h>
+#include <test.grpc.pb.h>
 
 using grpc::Channel;
 using grpc::ClientContext;
@@ -10,6 +11,7 @@ class TestClient {
  public:
   TestClient(std::shared_ptr<Channel> channel) : stub_(Test::NewStub(channel)) {}
   void TimeConsumingCall();
+  void GetShape_ServerStream();
 
  private:
   std::unique_ptr<Test::Stub> stub_;

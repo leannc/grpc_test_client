@@ -1,4 +1,5 @@
 #include "TestClient.h"
+#include "ShapeReader.h"
 
 void TestClient::TimeConsumingCall() {
   std::mutex mu;
@@ -43,4 +44,14 @@ void TestClient::TimeConsumingCall() {
     }
     return all_true;
   });  // 这个done很重要，保证了wait就算在notify之后被调用，也能正常返回。
+}
+
+void TestClient::GetShape_ServerStream() {
+  ShapeReader shape_reader(stub_.get());
+  auto status = shape_reader.Await();
+  if (status.ok()) {
+    std::cout << "Received all shapes successfully." << std::endl;
+  } else {
+    std::cerr << "Failed to receive shapes: " << status.error_message() << std::endl;
+  }
 }
