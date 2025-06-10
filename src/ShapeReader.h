@@ -13,7 +13,7 @@ class ShapeReader : public ::grpc::ClientReadReactor<::Shape> {
   void OnReadDone(bool ok) override {
     if (ok) {
       // Process the received shape
-      std::cout << "Received shape: " << shape_.type() << std::endl;
+      std::cout << "【" << std::this_thread::get_id() << "】" << "Received shape: " << shape_.type() << std::endl;
       StartRead(&shape_);
     } else {
       // Handle read error
