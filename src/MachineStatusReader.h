@@ -17,6 +17,7 @@ class MachineStatusReader : public ::grpc::ClientBidiReactor<::MachineStatusRequ
       std::cout << "【" << std::this_thread::get_id() << "】"
                 << "Received machine status: " << response_.status() << std::endl;
       StartRead(&response_);
+      // 把这些数据可以保存起来
     } else {
       // Handle read error
     }
