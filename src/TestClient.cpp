@@ -48,6 +48,8 @@ void TestClient::TimeConsumingCall() {
 
 void TestClient::GetShape_ServerStream() {
   ShapeReader shape_reader(stub_.get());
+
+  std::cout << "wait for shapes..." << std::endl;
   auto status = shape_reader.Await();
   if (status.ok()) {
     std::cout << "Received all shapes successfully." << std::endl;
