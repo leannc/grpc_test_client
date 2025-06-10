@@ -12,6 +12,7 @@ class TestClient {
   TestClient(std::shared_ptr<Channel> channel) : stub_(Test::NewStub(channel)) {}
   void TimeConsumingCall();
   void GetShape_ServerStream();
+  void GetMachineStatus_BidiStream();
 
  private:
   std::unique_ptr<Test::Stub> stub_;

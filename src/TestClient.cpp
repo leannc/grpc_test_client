@@ -1,4 +1,5 @@
 #include "TestClient.h"
+#include "MachineStatusReader.h"
 #include "ShapeReader.h"
 
 void TestClient::TimeConsumingCall() {
@@ -57,5 +58,16 @@ void TestClient::GetShape_ServerStream() {
     std::cout << "Received all shapes successfully." << std::endl;
   } else {
     std::cerr << "Failed to receive shapes: " << status.error_message() << std::endl;
+  }
+}
+
+void TestClient::GetMachineStatus_BidiStream() {
+  MachineStatusReader machine_status_reader(stub_.get());
+  std::cout << "wait for machine status..." << std::endl;
+  auto status = machine_status_reader.Await();
+  if (status.ok()) {
+    std::cout << "Received all machine statuses successfully." << std::endl;
+  } else {
+    std::cerr << "Failed to receive machine statuses: " << status.error_message() << std::endl;
   }
 }

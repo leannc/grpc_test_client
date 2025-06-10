@@ -9,6 +9,8 @@ add_executable(${PROJECT_NAME}
   src/TestClient.cpp
   src/ShapeReader.h
   src/ShapeReader.cpp
+  src/MachineStatusReader.h
+  src/MachineStatusReader.cpp
 
   ${CMAKE_SOURCE_DIR}/../grpc_test_server/src/proto/gen/test.pb.cc
   ${CMAKE_SOURCE_DIR}/../grpc_test_server/src/proto/gen/test.grpc.pb.cc
